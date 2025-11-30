@@ -102,3 +102,60 @@ for path, dirnames,filenames in os.walk(path):
     print(f"path - {path}")
     print(f"dirname - {dirnames}")
     print(f"filename - {filenames}")
+
+
+
+
+
+
+
+
+
+    import os, datetime
+def collector(path, res_path):
+    res_path = os.path.normpath(res_path)
+    path = os.path.normpath(path)
+    for dirpath, dirnames, filenames in os.walk(path):
+        for file in filenames:
+            file_time = os.path.getmtime(f"{dirpath}\\{file}")
+            datetime_file = datetime.datetime.fromtimestamp(file_time)
+            file_date = datetime_file.strftime("%d.%m.%Y")
+            if os.path.isdir(f"{res_path}\\{file_date}"):
+                os.replace(f"{dirpath}\\{file}", f"{res_path}\\{file_date}\\{file}")
+            else:
+                os.mkdir(f"{res_path}\\{file_date}\\")
+                os.replace(f"{dirpath}\\{file}",f"{res_path}\\{file_date}\\{file}")
+
+path = "D:/Web"
+res_path = "D:/agent_data"
+collector(path, res_path)
+
+
+
+
+
+
+
+
+
+
+
+import os
+def file_collector(path):
+    path = os.path.normpath(path)
+    result = {"dirs":[], "files": []}
+    for path, dirnames, filenames in os.walk(path):
+        for dir in dirnames:
+            result["dirs"].append(dir)
+        for file in filenames:
+            result["files"].append(file)
+    with open("skiper.txt","w") as file:
+        file.write("\n{:-<50}\n".format("Directories"))
+        for dir in result["dirs"]:
+            file.write(f"\t{dir}\n")
+        file.write("\n{:-<50}".format("Files"))
+        for files in result["files"]:
+            file.write(f"\t{files}\n")
+
+path = ''
+file_collector(path)
