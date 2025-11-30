@@ -111,7 +111,8 @@ for path, dirnames,filenames in os.walk(path):
 
 
 
-    import os, datetime
+    import datetime
+    import os
 def collector(path, res_path):
     res_path = os.path.normpath(res_path)
     path = os.path.normpath(path)
